@@ -1,37 +1,104 @@
 # Infinite Canvas Studio
 
-An advanced pen-tablet workspace for handwritten notes, mathematical exploration, PDF annotation, and offline notebooks.
+A pen-tablet notebook for handwritten thinking. The first working release follows the agreed dark navigation, warm paper, and violet pen-tool design.
 
-**Current status: development planning.** This repository currently contains the project introduction and implementation roadmap. Application code, install scripts, tests, and a live deployment are not available yet.
+**Status: v0.1 foundation implementation.** The editor and local notebooks work without a backend. Advanced recognition and cloud features are still on the roadmap.
 
-[Read the development plan](docs/DEVELOPMENT_PLAN.md)
+![Infinite Canvas Studio editor](docs/screenshots/editor.jpg)
 
-## Product direction
+## What works
 
-- A large infinite writing canvas with notebooks, pages, layers, and focus mode.
-- Pressure-aware handwriting, adjustable stabilization, highlighter, eraser, and undo/redo.
-- Selection tools, shapes, text, images, and flexible paper backgrounds.
-- Editable formulas and interactive 2D/3D graphs.
-- PDF annotation and export of complete notebooks.
-- Local autosave, downloadable backups, and offline use after initial loading.
-- Optional handwriting recognition and cloud synchronization through separate integrations.
+- Pressure-aware pen, adjustable stabilization, translucent highlighter, and stroke eraser.
+- Page-scoped undo/redo, pan, cursor-anchored zoom, and fit-to-content.
+- Notebook and page creation/renaming, page duplication, and confirmed page deletion.
+- Rectangles, ellipses, lines, arrows, typed text, sticky notes, and object selection/movement.
+- Layer selection, visibility, locking, and ordering.
+- Dotted, ruled, graph, and plain paper.
+- Local autosave in IndexedDB with save-error feedback and revision checks across tabs.
+- Validated JSON backups and additive import that preserves existing notebooks.
+- Full-content PNG and all-page notebook PDF export. Prepared exports have an explicit download link.
+- Interactive presets for quadratic, sine, and linear graphs, with an editable coefficient.
+- Focus mode, keyboard shortcuts, collapsible panels, and bundled local fonts.
+- Editable sample notes, clearly marked as a sample notebook.
 
-These are planned capabilities, not implemented features. Writing performance and recognition accuracy must be verified on real devices and representative notes.
+The mathematical content in the sample is prepared demo content, not handwriting recognized by an AI model.
 
-## Initial technical direction
+## Run locally
 
-React + TypeScript + Vite for the application; a dedicated Canvas 2D engine for ink; IndexedDB for local notebooks; separately loaded math, graph, and PDF modules.
+Install **Node.js 24.x**. From this repository's root:
 
-The core editor will be designed to run without a backend connection. Windows local setup and Vercel deployment are the initial targets.
+```sh
+npm ci
+npm run dev
+```
 
-## First implementation milestone
+Open the URL Vite prints in the terminal. On Windows, you can also run `start-windows.bat`; it installs dependencies if needed and starts Vite. Use `install-windows.bat` for a clean dependency reinstall.
 
-A working notebook in which users can create a page, write, erase, undo, pan, zoom, and reload their saved work. The interface will follow the agreed canvas UI concept.
+No environment variables, account, API key, backend, or database server are required.
 
-Subsequent milestones add richer editing, mathematical tools, PDF workflows, verified handwriting assistance, and optional cloud features.
+## Check the implementation
 
-## Running and deployment
+```sh
+npm run check
+```
 
-There are no runnable application commands yet. Setup instructions, a dependency lockfile, automated checks, and Vercel configuration will be added with the implementation.
+This runs strict TypeScript checking, the behavioral tests, and a production build. The build output is `dist/`.
 
-See [the development plan](docs/DEVELOPMENT_PLAN.md) for module ownership, acceptance criteria, performance strategy, and planned deployment settings.
+```sh
+npm run preview
+```
+
+The preview command is for checking the built application locally.
+
+## Deploy to Vercel
+
+Import this repository into your Vercel account. Until the implementation pull request is merged, choose the `feat/canvas-foundation` branch when creating a preview deployment.
+
+| Setting | Value |
+| --- | --- |
+| Framework | Vite |
+| Root directory | Repository root |
+| Node.js | 24.x |
+| Install command | `npm ci` |
+| Build command | `npm run build` |
+| Output directory | `dist` |
+| Environment variables | None |
+
+`vercel.json` includes the build settings and SPA fallback. See [deployment details](docs/DEPLOYMENT.md).
+
+## A few shortcuts
+
+| Action | Shortcut |
+| --- | --- |
+| Pen / highlighter / eraser | P / H / E |
+| Select and move | V |
+| Rectangle / ellipse / arrow / line | R / O / A / L |
+| Text | T |
+| Pan | Hold Space and drag; or use the hand tool |
+| Zoom | Ctrl/Cmd + wheel; or the zoom buttons |
+| Undo / redo | Ctrl/Cmd + Z / Ctrl/Cmd + Shift + Z |
+| Focus mode | F |
+| Delete selected object | Delete |
+| Find a notebook/page | / |
+| Save now | Ctrl/Cmd + S |
+
+Shortcuts do not intercept text-entry fields. Touch gestures navigate the page; pen-only mode prevents mouse drawing. Pressure input depends on the tablet, driver, and browser.
+
+## Your data
+
+Notebooks live in this browser's IndexedDB for the current origin. They are not uploaded. Clearing site data, changing browser profiles, or moving to another domain does not carry those notebooks along.
+
+Use **Export → Workspace backup** to keep a separate copy. **Import backup** adds notebooks rather than replacing existing ones. If another tab saves newer work, the editor stops automatic writes and offers backup and reload options.
+
+The loaded editor can keep working without a backend or an active network connection. Offline reopening through a service worker is **not yet implemented**.
+
+## Current limits
+
+- This is the first functional milestone, not the complete advanced product.
+- No handwriting-to-text/LaTeX recognition, arbitrary-expression parser, 3D graphs, PDF import, image import, cloud sync, accounts, or collaboration yet.
+- Selection currently moves one object by its bounding box; freeform lasso, resize handles, and multi-selection are not implemented.
+- Undo/redo history lasts for the current browser session. Deleted pages require a prior backup for recovery.
+- PDF output rasterizes each page's visible content and fits it to one A4 sheet. Text is not selectable in the PDF. Very large infinite pages may be reduced in scale.
+- Large-notebook stress tests, touch-device checks, and physical pen latency measurements are still required. No iPad performance comparison has been established.
+
+See [validation notes](docs/VALIDATION.md), [module architecture](docs/ARCHITECTURE.md), and the full [development roadmap](docs/DEVELOPMENT_PLAN.md).
