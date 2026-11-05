@@ -1,6 +1,6 @@
 # Infinite Canvas Studio — Development Plan
 
-Status: architecture and implementation roadmap only. Application code, builds, tests, and deployment have not started.
+Status: the first working foundation is implemented on `feat/canvas-foundation`. See README.md and VALIDATION.md for implemented features and verification. The remaining milestones below are the continuing product roadmap; they are not all complete.
 
 ## Product goal
 
@@ -244,3 +244,4 @@ Completion means working behavior with verification evidence. A visual placehold
 - [Pointer Events](https://developer.mozilla.org/en-US/docs/Web/API/PointerEvent)
 - [Coalesced pointer events](https://developer.mozilla.org/en-US/docs/Web/API/PointerEvent/getCoalescedEvents)
 - [IndexedDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API)
+
