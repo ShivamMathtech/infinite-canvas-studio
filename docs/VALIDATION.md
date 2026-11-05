@@ -6,6 +6,8 @@ Checked on 2026-11-05 (UTC). This is the first functional canvas milestone, not 
 
 Clean installation with `npm ci` succeeded on Linux, Node.js 24.22.1 / npm 11.9.0. `npm run check` passed: strict TypeScript checking, **21 tests across 3 files**, and the production Vite build.
 
+The [GitHub Actions run for implementation commit a185d4f](https://github.com/ShivamMathtech/infinite-canvas-studio/actions/runs/42093458086) also passed on **Ubuntu and Windows**. Both jobs completed a clean `npm ci` and the full `npm run check` command. This confirms command-line installation, tests and build on both runners; it does not replace testing a physical Windows pen tablet.
+
 | Area | Evidence |
 | --- | --- |
 | Document and backup integrity | Sample round trip, duplicate IDs, missing layers, invalid active pages, unsupported versions, nonfinite coordinates, HTTP-compatible ID creation |
@@ -29,7 +31,6 @@ A React DOM error occurred during an earlier development hot-reload session. It 
 
 ## Checks still required
 
-- Run the configured GitHub Actions matrix on Ubuntu and Windows.
 - Connect Vercel, deploy this branch, and check actual hosted build, deep-link refresh, persistence, and all downloads/imports.
 - Test physical pen-tablet pressure, palm/touch behavior, long strokes, high refresh-rate displays, Safari and mobile layouts.
 - Measure latency and stress-test large notebooks; no numerical latency or superiority claim is made.

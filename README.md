@@ -4,6 +4,8 @@ A pen-tablet notebook for handwritten thinking. The first working release follow
 
 **Status: v0.1 foundation implementation.** The editor and local notebooks work without a backend. Advanced recognition and cloud features are still on the roadmap.
 
+![Infinite Canvas Studio editor](docs/screenshots/editor.jpg)
+
 ## What works
 
 - Pressure-aware pen, adjustable stabilization, translucent highlighter, and stroke eraser.
